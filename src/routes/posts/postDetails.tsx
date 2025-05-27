@@ -3,8 +3,10 @@ import { HiInformationCircle } from 'react-icons/hi'
 import { Alert, Spinner } from 'flowbite-react'
 
 import { postsRoute } from './Posts'
-import { type Comment } from '../../data/posts'
 import { usePost } from './usePost'
+import { type Comment } from '../../data/posts'
+
+import CreateCommentForm from './CreateCommentForm'
 
 export const postDetailsRoute = createRoute({
   getParentRoute: () => postsRoute,
@@ -50,6 +52,7 @@ function PostDetails() {
 
       <div className="mt-6 border-t pt-4">
         <h3 className="text-lg font-semibold mb-4">Comments</h3>
+        <CreateCommentForm postId={post.id} />
         {post.comments?.map((comment: Comment) => (
           <div key={comment.id} className="mb-4 p-4 bg-gray-50 rounded">
             <p className="font-medium text-gray-700">{comment.author}</p>
