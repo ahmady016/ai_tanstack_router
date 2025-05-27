@@ -1,4 +1,4 @@
-import type { CreatePostFormInputs } from './createPostForm'
+import type { CreatePostFormInputs } from './CreatePostForm'
 import type { Post } from '../../data/posts'
 
 export type createPostActionResult = {

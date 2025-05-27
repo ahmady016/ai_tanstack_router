@@ -2,7 +2,7 @@ import { createRoute } from '@tanstack/react-router'
 import { HiInformationCircle } from 'react-icons/hi'
 import { Alert, Spinner } from 'flowbite-react'
 
-import { postsRoute } from '.'
+import { postsRoute } from './Posts'
 import { type Comment } from '../../data/posts'
 import { usePost } from './usePost'
 

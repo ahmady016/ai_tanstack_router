@@ -14,7 +14,7 @@ import { HiInformationCircle } from 'react-icons/hi'
 import createPostAction from './createPostAction'
 
 import { createRoute } from '@tanstack/react-router'
-import { postsRoute } from '.'
+import { postsRoute } from './Posts'
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 

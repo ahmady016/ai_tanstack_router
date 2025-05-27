@@ -13,12 +13,13 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
-import { Route as PostsIndexImport } from './routes/posts/index'
+import { Route as PostsIndexImport } from './routes/posts/Posts'
 import { Route as PostsUsePostsImport } from './routes/posts/usePosts'
 import { Route as PostsUsePostImport } from './routes/posts/usePost'
-import { Route as PostsPostDetailsImport } from './routes/posts/postDetails'
-import { Route as PostsCreatePostFormImport } from './routes/posts/createPostForm'
+import { Route as PostsPostDetailsImport } from './routes/posts/PostDetails'
 import { Route as PostsCreatePostActionImport } from './routes/posts/createPostAction'
+import { Route as PostsCreatePostFormImport } from '././routes/posts/createPostAction
+import { Route as PostsCreateCommentFormImport } from './routes/posts/CreateCommentForm'
 
 // Create/Update Routes
 
@@ -58,15 +59,21 @@ const PostsPostDetailsRoute = PostsPostDetailsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const PostsCreatePostFormRoute = PostsCreatePostFormImport.update({
-  id: '/posts/createPostForm',
-  path: '/posts/createPostForm',
-  getParentRoute: () => rootRoute,
-} as any)
-
 const PostsCreatePostActionRoute = PostsCreatePostActionImport.update({
   id: '/posts/createPostAction',
   path: '/posts/createPostAction',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PostsCreatePostFormRoute = PostsCreatePostFormImport.update({
+  id: '/posts/CreatePostForm',
+  path: '/posts/CreatePostForm',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PostsCreateCommentFormRoute = PostsCreateCommentFormImport.update({
+  id: '/posts/CreateCommentForm',
+  path: '/posts/CreateCommentForm',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -88,18 +95,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/posts/CreateCommentForm': {
+      id: '/posts/CreateCommentForm'
+      path: '/posts/CreateCommentForm'
+      fullPath: '/posts/CreateCommentForm'
+      preLoaderRoute: typeof PostsCreateCommentFormImport
+      parentRoute: typeof rootRoute
+    }
+    '/posts/CreatePostForm': {
+      id: '/posts/CreatePostForm'
+      path: '/posts/CreatePostForm'
+      fullPath: '/posts/CreatePostForm'
+      preLoaderRoute: typeof PostsCreatePostFormImport
+      parentRoute: typeof rootRoute
+    }
     '/posts/createPostAction': {
       id: '/posts/createPostAction'
       path: '/posts/createPostAction'
       fullPath: '/posts/createPostAction'
       preLoaderRoute: typeof PostsCreatePostActionImport
-      parentRoute: typeof rootRoute
-    }
-    '/posts/createPostForm': {
-      id: '/posts/createPostForm'
-      path: '/posts/createPostForm'
-      fullPath: '/posts/createPostForm'
-      preLoaderRoute: typeof PostsCreatePostFormImport
       parentRoute: typeof rootRoute
     }
     '/posts/postDetails': {
@@ -138,8 +152,9 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/posts/CreateCommentForm': typeof PostsCreateCommentFormRoute
+  '/posts/CreatePostForm': typeof PostsCreatePostFormRoute
   '/posts/createPostAction': typeof PostsCreatePostActionRoute
-  '/posts/createPostForm': typeof PostsCreatePostFormRoute
   '/posts/postDetails': typeof PostsPostDetailsRoute
   '/posts/usePost': typeof PostsUsePostRoute
   '/posts/usePosts': typeof PostsUsePostsRoute
@@ -149,8 +164,9 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/posts/CreateCommentForm': typeof PostsCreateCommentFormRoute
+  '/posts/CreatePostForm': typeof PostsCreatePostFormRoute
   '/posts/createPostAction': typeof PostsCreatePostActionRoute
-  '/posts/createPostForm': typeof PostsCreatePostFormRoute
   '/posts/postDetails': typeof PostsPostDetailsRoute
   '/posts/usePost': typeof PostsUsePostRoute
   '/posts/usePosts': typeof PostsUsePostsRoute
@@ -161,8 +177,9 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/posts/CreateCommentForm': typeof PostsCreateCommentFormRoute
+  '/posts/CreatePostForm': typeof PostsCreatePostFormRoute
   '/posts/createPostAction': typeof PostsCreatePostActionRoute
-  '/posts/createPostForm': typeof PostsCreatePostFormRoute
   '/posts/postDetails': typeof PostsPostDetailsRoute
   '/posts/usePost': typeof PostsUsePostRoute
   '/posts/usePosts': typeof PostsUsePostsRoute
@@ -174,8 +191,9 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/posts/CreateCommentForm'
+    | '/posts/CreatePostForm'
     | '/posts/createPostAction'
-    | '/posts/createPostForm'
     | '/posts/postDetails'
     | '/posts/usePost'
     | '/posts/usePosts'
@@ -184,8 +202,9 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/posts/CreateCommentForm'
+    | '/posts/CreatePostForm'
     | '/posts/createPostAction'
-    | '/posts/createPostForm'
     | '/posts/postDetails'
     | '/posts/usePost'
     | '/posts/usePosts'
@@ -194,8 +213,9 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/posts/CreateCommentForm'
+    | '/posts/CreatePostForm'
     | '/posts/createPostAction'
-    | '/posts/createPostForm'
     | '/posts/postDetails'
     | '/posts/usePost'
     | '/posts/usePosts'
@@ -206,8 +226,9 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  PostsCreatePostActionRoute: typeof PostsCreatePostActionRoute
+  PostsCreateCommentFormRoute: typeof PostsCreateCommentFormRoute
   PostsCreatePostFormRoute: typeof PostsCreatePostFormRoute
+  PostsCreatePostActionRoute: typeof PostsCreatePostActionRoute
   PostsPostDetailsRoute: typeof PostsPostDetailsRoute
   PostsUsePostRoute: typeof PostsUsePostRoute
   PostsUsePostsRoute: typeof PostsUsePostsRoute
@@ -217,8 +238,9 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  PostsCreatePostActionRoute: PostsCreatePostActionRoute,
+  PostsCreateCommentFormRoute: PostsCreateCommentFormRoute,
   PostsCreatePostFormRoute: PostsCreatePostFormRoute,
+  PostsCreatePostActionRoute: PostsCreatePostActionRoute,
   PostsPostDetailsRoute: PostsPostDetailsRoute,
   PostsUsePostRoute: PostsUsePostRoute,
   PostsUsePostsRoute: PostsUsePostsRoute,
@@ -237,8 +259,9 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/posts/CreateCommentForm",
+        "/posts/CreatePostForm",
         "/posts/createPostAction",
-        "/posts/createPostForm",
         "/posts/postDetails",
         "/posts/usePost",
         "/posts/usePosts",
@@ -251,11 +274,14 @@ export const routeTree = rootRoute
     "/about": {
       "filePath": "about.tsx"
     },
+    "/posts/CreateCommentForm": {
+      "filePath": "posts/CreateCommentForm.tsx"
+    },
+    "/posts/CreatePostForm": {
+      "filePath": "posts/CreatePostForm.tsx"
+    },
     "/posts/createPostAction": {
       "filePath": "posts/createPostAction.ts"
-    },
-    "/posts/createPostForm": {
-      "filePath": "posts/createPostForm.tsx"
     },
     "/posts/postDetails": {
       "filePath": "posts/postDetails.tsx"
