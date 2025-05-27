@@ -1,12 +1,12 @@
 import type { CreatePostFormInputs } from './CreatePostForm'
 import type { Post } from '../../data/posts'
 
-export type createPostActionResult = {
+export type ActionResult = {
   message: string
   success: boolean
 }
 
-async function createPostAction(post: CreatePostFormInputs): Promise<createPostActionResult> {
+async function createPostAction(post: CreatePostFormInputs): Promise<ActionResult> {
   const postToAdd: Post = {
     id: Math.random().toString(),
     title: post.title,

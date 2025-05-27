@@ -12,11 +12,11 @@ import { Alert } from 'flowbite-react/components/Alert'
 import { HiInformationCircle } from 'react-icons/hi'
 
 import createPostAction from './createPostAction'
+import sleep from '../../utils/sleep'
 
 import { createRoute } from '@tanstack/react-router'
 import { postsRoute } from './Posts'
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 export const createPostRoute = createRoute({
   getParentRoute: () => postsRoute,
