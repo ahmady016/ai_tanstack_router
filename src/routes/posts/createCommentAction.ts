@@ -1,10 +1,12 @@
+import { nanoid } from 'nanoid'
+
 import type { Comment } from '../../data/posts'
 import type { ActionResult } from './createPostAction'
 import type { CreateCommentFormInputs } from './CreateCommentForm'
 
 async function createCommentAction(comment: CreateCommentFormInputs): Promise<ActionResult> {
   const commentToAdd: Comment = {
-    id: Math.random().toString(),
+    id: nanoid(12),
     postId: comment.postId,
     author: comment.author,
     content: comment.content,

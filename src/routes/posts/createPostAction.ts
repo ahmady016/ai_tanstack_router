@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid'
+
 import type { CreatePostFormInputs } from './CreatePostForm'
 import type { Post } from '../../data/posts'
 
@@ -8,7 +10,7 @@ export type ActionResult = {
 
 async function createPostAction(post: CreatePostFormInputs): Promise<ActionResult> {
   const postToAdd: Post = {
-    id: Math.random().toString(),
+    id: nanoid(12),
     title: post.title,
     content: post.content,
     timestamp: new Date().toISOString(),
