@@ -1,7 +1,7 @@
-import React from 'react'
-
 import z from 'zod'
-import { useForm, type SubmitHandler } from 'react-hook-form'
+import Swal from 'sweetalert2'
+
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { TextInput } from 'flowbite-react/components/TextInput'
@@ -9,10 +9,9 @@ import { Textarea } from 'flowbite-react/components/Textarea'
 import { Button } from 'flowbite-react/components/Button'
 import { Alert } from 'flowbite-react/components/Alert'
 
-import { GoCheck } from 'react-icons/go'
 import { HiInformationCircle } from 'react-icons/hi'
 
-import createPostAction, { type createPostActionResult } from './createPostAction'
+import createPostAction from './createPostAction'
 
 import { createRoute } from '@tanstack/react-router'
 import { postsRoute } from '.'
@@ -33,7 +32,6 @@ const schema = z.object({
 export type CreatePostFormInputs = z.infer<typeof schema>
 
 function createPostForm() {
-  const [result, setResult] = React.useState<createPostActionResult | undefined>(undefined)
   const {
     register,
     handleSubmit,
@@ -42,13 +40,19 @@ function createPostForm() {
     resolver: zodResolver(schema),
   })
 
-  const onSubmit: SubmitHandler<CreatePostFormInputs> = async (data) => {
+  const onSubmit = async (data: CreatePostFormInputs) => {
     console.log(data)
-    setResult(undefined)
-
     await sleep(2000)
     const result = await createPostAction(data)
-    setResult(result)
+    Swal.fire({
+      title: 'New Post Creation Status',
+      text: result.message,
+      icon: result.success ? 'success' : 'error',
+      showCancelButton: false,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'OK',
+    })
   }
 
   return (
@@ -87,12 +91,6 @@ function createPostForm() {
       <Button type="submit" className="cursor-pointer" size="lg" disabled={isSubmitting}>
         {isSubmitting ? 'Creating the new post ...' : 'Create New Post'}
       </Button>
-      {result 
-        ? result.success
-          ? <Alert color="success" icon={HiInformationCircle}>{result.message}</Alert>
-          : <Alert color="failure" icon={GoCheck}>{result.message}</Alert>
-        : null
-      }
     </form>
   )
 }
