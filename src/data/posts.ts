@@ -6,6 +6,8 @@ export type Post = {
   comments?: Comment[]
 }
 
+export type PostWithoutComments = Exclude<Post, 'comments'>
+
 export type Comment = {
   id: string
   postId: string
