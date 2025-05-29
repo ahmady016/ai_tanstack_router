@@ -3,7 +3,10 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import Swal from 'sweetalert2'
+
 import { Alert } from 'flowbite-react/components/Alert'
+import { Spinner } from 'flowbite-react/components/Spinner'
+
 import { TextInput } from 'flowbite-react/components/TextInput'
 import { Textarea } from 'flowbite-react/components/Textarea'
 import { Button } from 'flowbite-react/components/Button'
@@ -12,7 +15,6 @@ import { HiInformationCircle } from 'react-icons/hi'
 
 import createCommentAction from './createCommentAction'
 import sleep from '../../utils/sleep'
-
 
 const schema = z.object({
   postId: z.string(),
@@ -74,7 +76,13 @@ const CreateCommentForm: React.FC<CreateCommentFormProps> = ({ postId }) => {
           size="2xl"
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Adding the new comment ...' : 'Add Comment'}
+          {isSubmitting
+            ? <>
+                <Spinner size="sm"  className="me-3" light aria-label="loading state" />
+                <span>Adding the new comment ...</span>
+              </>
+            : <span>Add Comment</span>
+          }
         </Button>
       </div>
       <div className="flex flex-col gap-1">

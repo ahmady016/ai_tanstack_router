@@ -1,13 +1,15 @@
 import z from 'zod'
-import Swal from 'sweetalert2'
-
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+
+import Swal from 'sweetalert2'
+
+import { Spinner } from 'flowbite-react/components/Spinner'
+import { Alert } from 'flowbite-react/components/Alert'
 
 import { TextInput } from 'flowbite-react/components/TextInput'
 import { Textarea } from 'flowbite-react/components/Textarea'
 import { Button } from 'flowbite-react/components/Button'
-import { Alert } from 'flowbite-react/components/Alert'
 
 import { HiInformationCircle } from 'react-icons/hi'
 
@@ -89,7 +91,13 @@ function createPostForm() {
         )}
       </div>
       <Button type="submit" className="cursor-pointer" size="lg" disabled={isSubmitting}>
-        {isSubmitting ? 'Creating the new post ...' : 'Create New Post'}
+        {isSubmitting
+          ? <>
+              <Spinner size="sm"  className="me-3" light aria-label="loading state" />
+              <span>Creating the new post ...</span>
+            </>
+          : <span>Create New Post</span>
+        }
       </Button>
     </form>
   )
